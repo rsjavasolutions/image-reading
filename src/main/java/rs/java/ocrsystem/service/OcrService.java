@@ -1,4 +1,4 @@
-package rs.java.ocrsystem;
+package rs.java.ocrsystem.service;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,15 +8,16 @@ import java.net.URL;
 
 import net.sourceforge.tess4j.*;
 import net.sourceforge.tess4j.util.LoadLibs;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 
-public class TesseractExample {
+@Service
+public class OcrService {
 
-    public static void main(String[] args) throws IOException {
+    public String getText(String url) throws IOException {
         //pobieram obrazek z internetu
-        URL imageFile = new URL(
-                "https://i.pinimg.com/originals/3d/30/91/3d3091cc0c7a275fe223401b707cbd75.jpg");
+        URL imageFile = new URL(url);
 
         //buforuje obrazek na postać bitową
         BufferedImage bufferedImage = ImageIO.read(imageFile);
@@ -29,13 +30,13 @@ public class TesseractExample {
 
         //ustawiam język na polski
         instance.setLanguage("pol");
-
+        String result = null;
         // przekazuję postać bajtową i zamieniam ją na treść
         try {
-            String result = instance.doOCR(bufferedImage);
-            System.out.println(result);
+            result = instance.doOCR(bufferedImage);
         } catch (TesseractException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
+        return result;
     }
 }
