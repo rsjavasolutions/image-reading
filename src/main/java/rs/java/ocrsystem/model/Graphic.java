@@ -8,6 +8,7 @@ public class Graphic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String url;
     private String content;
 
@@ -21,6 +22,14 @@ public class Graphic {
 
     public String getUrl() {
         return url;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setUrl(String url) {
